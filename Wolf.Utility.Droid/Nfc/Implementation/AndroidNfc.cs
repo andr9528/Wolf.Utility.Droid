@@ -15,6 +15,8 @@ using Android.Views;
 using Android.Widget;
 using Java.Lang;
 using Ultz.XNFC;
+using Wolf.Utility.Main.Factory;
+using Wolf.Utility.Main.Factory.Enum;
 using Wolf.Utility.Main.Logging;
 using Wolf.Utility.Main.Logging.Enum;
 using Wolf.Utility.Main.Nfc.Core;
@@ -141,40 +143,32 @@ namespace Wolf.Utility.Droid.Nfc.Implementation
         }
         #endregion
 
+        /*
+         * Potentially useful links
+         * https://stackoverflow.com/questions/36270238/android-nfc-ndef-writendefmessage-throws-ioexception-and-erases-tag-data
+         * https://stackoverflow.com/questions/40288795/android-nfca-connect-nfca-transceive-nfca-settimeout-and-nfca-getmaxtran
+         * https://stackoverflow.com/questions/29718618/get-the-data-payload-of-a-tag
+         * https://stackoverflow.com/questions/42819027/nfca-transceive-commands-documentation-nfc-a-iso-14443-3a*
+         */
+
+
         public void Callback(object obj)
         {
-            byte[] SELECT = {
-                (byte) 0x00, // CLA Class           
-                (byte) 0xA4, // INS Instruction     
-                (byte) 0x04, // P1  Parameter 1
-                (byte) 0x00, // P2  Parameter 2
-                (byte) 0x0A, // Length
-                0x63,0x64,0x63,0x00,0x00,0x00,0x00,0x32,0x32,0x31 // AID
-            };
-
-            byte[] GET_STRING = {
-                (byte) 0x80, // CLA Class        
-                0x04, // INS Instruction
-                0x00, // P1  Parameter 1
-                0x00, // P2  Parameter 2
-                0x10  // LE  maximal number of bytes expected in result
-            };
-
             if (obj is Intent intent)
             {
                 Logging.Log(LogType.Information, $"Callback object is of type 'Intent'");
 
                 Tag rawTag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
 
-                IsoDep tag = IsoDep.Get(rawTag);
-                
+                NfcA tag = NfcA.Get(rawTag);
+
                 tag.Connect();
-                byte[] result = tag.Transceive(SELECT);
+                byte[] result = tag.Transceive(CommandFactory.Instance().GetByteCommand(NfcByteCommand.Select));
 
                 if (!(result[0] == (byte)0x90 && result[1] == (byte)0x00))
                     throw new IOException("could not select applet");
 
-                result = tag.Transceive(GET_STRING);
+                result = tag.Transceive(CommandFactory.Instance().GetByteCommand(NfcByteCommand.GetString));
                 int len = result.Length;
 
                 if (!(result[len - 2] == (byte)0x90 && result[len - 1] == (byte)0x00))
