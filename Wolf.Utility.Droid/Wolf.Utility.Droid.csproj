@@ -52,8 +52,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Element\WolfWebviewClient.cs" />
-    <Compile Include="Element\WolfWebViewRenderer.cs" />
     <Compile Include="Nfc\Implementation\AndroidNfc.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +66,12 @@
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Forms">
       <Version>4.4.0.936621-pre1</Version>
+    </PackageReference>
+    <PackageReference Include="XLabs.Serialization">
+      <Version>2.0.5782</Version>
+    </PackageReference>
+    <PackageReference Include="XLabs.Serialization.JSON">
+      <Version>2.0.5782</Version>
     </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>2.4.1</Version>
