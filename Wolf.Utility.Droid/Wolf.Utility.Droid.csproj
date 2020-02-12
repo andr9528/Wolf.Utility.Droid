@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\AdvancedTabbedPageRenderer.cs" />
     <Compile Include="Elements\AdvancedWebViewRenderer .cs" />
     <Compile Include="Elements\AdvancedWebViewRendererClient.cs" />
     <Compile Include="Nfc\Implementation\AndroidNfc.cs" />
