@@ -9,7 +9,7 @@ namespace Wolf.Utility.Droid.Services
 {
     public class KeyboardService : IKeyboardService
     {
-        private readonly InputMethodManager inputMethodManager;
+        private InputMethodManager inputMethodManager;
         private readonly object mainActivity;
         public KeyboardService(object activity, InputMethodManager methodManager)
         {
@@ -28,6 +28,11 @@ namespace Wolf.Utility.Droid.Services
 
                 activity?.Window.DecorView.ClearFocus();
             }
+        }
+
+        public void ReInitializeInputMethod()
+        {
+            inputMethodManager = InputMethodManager.FromContext((Context) mainActivity);
         }
     }
 }
