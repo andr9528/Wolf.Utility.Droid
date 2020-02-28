@@ -15,7 +15,7 @@ using Android.Widget;
 using Wolf.Utility.Droid.Elements;
 using Wolf.Utility.Main.Logging;
 using Wolf.Utility.Main.Logging.Enum;
-using Wolf.Utility.Main.Xamarin.Elements;
+using Wolf.Utility.Xamarin.Elements;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;

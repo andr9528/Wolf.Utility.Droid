@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Wolf.Utility.Droid.Elements;
-using Wolf.Utility.Main.Xamarin.Elements;
+using Wolf.Utility.Xamarin.Elements;
 using Xamarin.Forms;
 using XLabs;
 using XLabs.Forms.Controls;

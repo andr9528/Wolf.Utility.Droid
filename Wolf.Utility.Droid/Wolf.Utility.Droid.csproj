@@ -40,7 +40,6 @@
     <Reference Include="FormsViewGroup">
       <HintPath>..\..\..\..\..\Microsoft\Xamarin\NuGet\xamarin.forms\4.4.0.936621-pre1\lib\MonoAndroid90\FormsViewGroup.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -49,6 +48,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Forms.Platform.Android">
       <HintPath>..\..\..\..\..\Microsoft\Xamarin\NuGet\xamarin.forms\4.4.0.936621-pre1\lib\MonoAndroid90\Xamarin.Forms.Platform.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Forms.Droid">
+      <HintPath>..\..\..\..\..\Users\André\.nuget\packages\xlabs.forms\2.0.5782\lib\MonoAndroid\XLabs.Forms.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -71,17 +73,8 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>4.4.0.936621-pre1</Version>
     </PackageReference>
-    <PackageReference Include="XLabs.Serialization">
+    <PackageReference Include="XLabs.Forms">
       <Version>2.0.5782</Version>
-    </PackageReference>
-    <PackageReference Include="XLabs.Serialization.JSON">
-      <Version>2.0.5782</Version>
-    </PackageReference>
-    <PackageReference Include="ZXing.Net.Mobile">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="ZXing.Net.Mobile.Forms">
-      <Version>2.4.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +87,10 @@
     <ProjectReference Include="..\..\Wolf.Utility.Main\Wolf.Utility.Main\Wolf.Utility.Main.csproj">
       <Project>{C418AB6A-64A8-481E-8B47-34B88FBECBF2}</Project>
       <Name>Wolf.Utility.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wolf.Utility.Xamarin\Wolf.Utility.Xamarin\Wolf.Utility.Xamarin.csproj">
+      <Project>{55D6DE37-81D5-47AA-9637-6FBF3C76F963}</Project>
+      <Name>Wolf.Utility.Xamarin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

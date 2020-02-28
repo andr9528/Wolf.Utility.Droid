@@ -19,8 +19,8 @@ using Wolf.Utility.Main.Factory;
 using Wolf.Utility.Main.Factory.Enum;
 using Wolf.Utility.Main.Logging;
 using Wolf.Utility.Main.Logging.Enum;
-using Wolf.Utility.Main.Nfc.Core;
-using Wolf.Utility.Main.Nfc.Core.Enum;
+using Wolf.Utility.Xamarin.Nfc.Core;
+using Wolf.Utility.Xamarin.Nfc.Core.Enum;
 
 namespace Wolf.Utility.Droid.Nfc.Implementation
 {

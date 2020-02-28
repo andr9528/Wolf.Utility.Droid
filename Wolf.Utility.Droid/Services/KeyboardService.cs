@@ -6,7 +6,7 @@ using Android.Views.InputMethods;
 using Wolf.Utility.Droid.Services;
 using Wolf.Utility.Main.Logging;
 using Wolf.Utility.Main.Logging.Enum;
-using Wolf.Utility.Main.Xamarin.Services;
+using Wolf.Utility.Xamarin.Services;
 
 namespace Wolf.Utility.Droid.Services
 {
