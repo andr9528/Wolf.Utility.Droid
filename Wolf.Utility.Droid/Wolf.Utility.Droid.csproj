@@ -57,10 +57,13 @@
     <Compile Include="Elements\AdvancedTabbedPageRenderer.cs" />
     <Compile Include="Elements\AdvancedWebViewRenderer .cs" />
     <Compile Include="Elements\AdvancedWebViewRendererClient.cs" />
+    <Compile Include="Extensions\Methods\ContextExtensions.cs" />
     <Compile Include="Nfc\Implementation\AndroidNfc.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\KeyboardService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\SignalRService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
