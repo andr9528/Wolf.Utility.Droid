@@ -1,6 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.V4.App;
+using Wolf.Utility.Main.Logging;
+using Wolf.Utility.Main.Logging.Enum;
 
 namespace Wolf.Utility.Droid.Services
 {
@@ -8,15 +11,17 @@ namespace Wolf.Utility.Droid.Services
     {
         protected Context Context { get; set; }
         protected NotificationManager manager = null;
+        protected bool IsStarted;
 
-        protected void CreateNotificationChannel(string channelId, string channelName)
+        protected void CreateNotificationChannel(string channelId, string channelName, string description)
         {
+            if (Context == null) Logging.Log(LogType.Warning, $"The Context of this service is Null!");
             manager = NotificationManager.FromContext(Context);
 
             if (Build.VERSION.SdkInt < BuildVersionCodes.O) return;
             var channel = new NotificationChannel(channelId, channelName, NotificationImportance.Default)
             {
-                Description = $"Notifications caused by a SignalR Hub"
+                Description = description
             };
             manager.CreateNotificationChannel(channel);
         }
@@ -27,13 +32,25 @@ namespace Wolf.Utility.Droid.Services
         /// <param name="channelId"></param>
         /// <param name="title"></param>
         /// <param name="text"></param>
+        /// <param name="iconResourceId"></param>
+        /// <param name="priority"></param>
         /// <param name="autoCancel"></param>
-        protected void ShowNotification(string channelId, string title, string text, bool autoCancel = true)
+        protected void ShowNotification(string channelId, string title, string text, int iconResourceId, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true)
         {
-            var builder = new Notification.Builder(Context, channelId)
-                .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel);
+            try
+            {
+                var builder = new NotificationCompat.Builder(Context, channelId)
+                       .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel).SetPriority((int)priority).SetSmallIcon(iconResourceId);
 
-            manager.Notify(1, builder.Build());
+                Logging.Log(LogType.Event, $"Firing Notification; Title: {title}; Text: {text}");
+                manager.Notify(1, builder.Build());
+            }
+            catch (System.Exception e)
+            {
+                Logging.Log(LogType.Exception,
+                    $"Something went wrong processing the new notification. Exception message: {e.Message}; Exception Stacktrace: {e.StackTrace}");
+                throw;
+            }
         }
 
         /// <summary>
@@ -43,17 +60,29 @@ namespace Wolf.Utility.Droid.Services
         /// <param name="channelId"></param>
         /// <param name="title"></param>
         /// <param name="text"></param>
+        /// <param name="iconResourceId"></param>
+        /// <param name="priority"></param>
         /// <param name="autoCancel"></param>
-        protected void ShowNotification<T>(string channelId, string title, string text, bool autoCancel = true) where T : Activity
+        protected void ShowNotification<T>(string channelId, string title, string text, int iconResourceId, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true) where T : Activity
         {
-            var builder = new Notification.Builder(Context, channelId)
-                .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel);
+            try
+            {
+                var builder = new NotificationCompat.Builder(Context, channelId)
+                        .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel).SetPriority((int)priority).SetSmallIcon(iconResourceId);
 
-            var intent = new Intent(Context, typeof(T));
-            var pending = PendingIntent.GetActivity(Context, 0, intent, PendingIntentFlags.UpdateCurrent);
-            builder.SetContentIntent(pending);
+                var intent = new Intent(Context, typeof(T));
+                var pending = PendingIntent.GetActivity(Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+                builder.SetContentIntent(pending);
 
-            manager.Notify(1, builder.Build());
+                Logging.Log(LogType.Event, $"Firing Notification with Intent; Title: {title}; Text: {text}");
+                manager.Notify(1, builder.Build());
+            }
+            catch (System.Exception e)
+            {
+                Logging.Log(LogType.Exception,
+                    $"Something went wrong processing the new notification. Exception message: {e.Message}; Exception Stacktrace: {e.StackTrace}");
+                throw;
+            }
         }
     }
 }
