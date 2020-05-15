@@ -33,14 +33,18 @@ namespace Wolf.Utility.Droid.Services
         /// <param name="title"></param>
         /// <param name="text"></param>
         /// <param name="iconResourceId"></param>
+        /// <param name="bigText"></param>
         /// <param name="priority"></param>
         /// <param name="autoCancel"></param>
-        protected void ShowNotification(string channelId, string title, string text, int iconResourceId, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true)
+        protected void ShowNotification(string channelId, string title, string text, int iconResourceId, string bigText = default, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true)
         {
             try
             {
                 var builder = new NotificationCompat.Builder(Context, channelId)
                        .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel).SetPriority((int)priority).SetSmallIcon(iconResourceId);
+
+                if (!string.IsNullOrEmpty(bigText))
+                    using (var style = new NotificationCompat.BigTextStyle()) { builder.SetStyle(style.BigText(bigText)); }
 
                 Logging.Log(LogType.Event, $"Firing Notification; Title: {title}; Text: {text}");
                 manager.Notify(1, builder.Build());
@@ -61,14 +65,18 @@ namespace Wolf.Utility.Droid.Services
         /// <param name="title"></param>
         /// <param name="text"></param>
         /// <param name="iconResourceId"></param>
+        /// <param name="bigText"></param>
         /// <param name="priority"></param>
         /// <param name="autoCancel"></param>
-        protected void ShowNotification<T>(string channelId, string title, string text, int iconResourceId, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true) where T : Activity
+        protected void ShowNotification<T>(string channelId, string title, string text, int iconResourceId, string bigText = default, NotificationImportance priority = NotificationImportance.Default, bool autoCancel = true) where T : Activity
         {
             try
             {
                 var builder = new NotificationCompat.Builder(Context, channelId)
                         .SetContentTitle(title).SetContentText(text).SetAutoCancel(autoCancel).SetPriority((int)priority).SetSmallIcon(iconResourceId);
+
+                if (!string.IsNullOrEmpty(bigText))
+                    using (var style = new NotificationCompat.BigTextStyle()) { builder.SetStyle(style.BigText(bigText)); }
 
                 var intent = new Intent(Context, typeof(T));
                 var pending = PendingIntent.GetActivity(Context, 0, intent, PendingIntentFlags.UpdateCurrent);

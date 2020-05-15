@@ -23,7 +23,7 @@ namespace Wolf.Utility.Droid.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            if(ReconnectOnResume && HubProxy.ConnectionState == HubConnectionState.Disconnected) 
+            if(ReconnectOnResume) 
                 HubProxy.Reconnect(ReconnectAttempts);
 
             return StartCommandResult.Sticky;
